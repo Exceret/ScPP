@@ -164,7 +164,7 @@ DimPlot(sc, group = "ScPP", cols = c("grey","blue","red"))
 
 
 
-<img width="647" height="538" alt="image" src="https://github.com/user-attachments/assets/b9b74edb-45f3-41ae-a157-227b3b6850f6" />
+<img width="559" height="452" alt="image" src="https://github.com/user-attachments/assets/1c11b973-6c06-4182-b842-79446e263569" />
 
 
 
@@ -258,7 +258,7 @@ DimPlot(sc, group = "ScPP", cols = c("grey","blue","red"))
 
 
 
-<img width="654" height="534" alt="image" src="https://github.com/user-attachments/assets/aec75cce-3c59-439b-a8c2-882b5d8ff278" />
+<img width="569" height="452" alt="image" src="https://github.com/user-attachments/assets/e7889248-013c-444e-a2c7-58416cfe904f" />
 
 
 
@@ -351,7 +351,7 @@ DimPlot(sc, group = "ScPP", cols = c("grey","blue","red"))
 
 
 
-<img width="653" height="529" alt="image" src="https://github.com/user-attachments/assets/7c73de5b-cbb7-45ae-b095-5dc6628aee5c" />
+<img width="567" height="456" alt="image" src="https://github.com/user-attachments/assets/394a4c1d-1d08-4678-8a9a-4b36bf829a54" />
 
 
 

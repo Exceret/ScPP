@@ -1,0 +1,4 @@
+^[.]?air[.]toml$
+^\.vscode$
+^LICENSE\.md$
+^README\.Rmd$

@@ -21,5 +21,5 @@
 }
 
 #' @importFrom dplyr %>%
-#' @importFrom data.table %chin% :=
+#' @importFrom data.table %chin% := `:=` `%chin%`
 NULL

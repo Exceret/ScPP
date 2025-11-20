@@ -10,6 +10,7 @@ OptimizationMode(
   probs,
   verbose = SigBridgeRUtils::getFuncOption("verbose"),
   parallel = SigBridgeRUtils::getFuncOption("parallel"),
+  parallel_type = SigBridgeRUtils::getFuncOption("parallel.type"),
   workers = SigBridgeRUtils::getFuncOption("workers"),
   seed = SigBridgeRUtils::getFuncOption("seed"),
   ...

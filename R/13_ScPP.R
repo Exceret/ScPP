@@ -112,6 +112,7 @@ ScPP.optimized <- function(
             geneList = geneList,
             probs = probs,
             parallel = parallel,
+            verbose = verbose,
             workers = workers,
             seed = seed
         )
@@ -306,6 +307,7 @@ OptimizationMode <- function(
     probs,
     verbose = SigBridgeRUtils::getFuncOption("verbose"),
     parallel = SigBridgeRUtils::getFuncOption("parallel"),
+    parallel_type = SigBridgeRUtils::getFuncOption("parallel.type"),
     workers = SigBridgeRUtils::getFuncOption("workers"),
     seed = SigBridgeRUtils::getFuncOption("seed"),
     ...
@@ -376,11 +378,11 @@ OptimizationMode <- function(
 
     # Iterate through probability thresholds
     if (parallel) {
-        workers <- workers %||% 4L
         SigBridgeRUtils::plan(
-            SigBridgeRUtils::getFuncOption("parallel.type"),
+            parallel_type,
             workers = workers
         )
+        on.exit(SigBridgeRUtils::plan("sequential"))
 
         if (verbose) {
             ts_cli$cli_alert_info(sprintf(
@@ -419,8 +421,6 @@ OptimizationMode <- function(
                 )
             )
         )
-
-        SigBridgeRUtils::plan("sequential")
     } else {
         results <- purrr::map(
             seq_len(n_probs),

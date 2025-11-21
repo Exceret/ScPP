@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 ```
 # ScPP
 
-**Fork and tweaked by Exceret**
+**Forked and tweaked by Exceret**
 
 Please use [SigBridgeR](https://github.com/WangLabCSU/SigBridgeR) for the fork version of ScPP. Bug reports and feature requests are welcomed at [SigBridgeR-issues](https://github.com/WangLabCSU/SigBridgeR/issues).
 

@@ -1,13 +1,22 @@
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
 # ScPP
 
-**Fork and tweaked by Exceret**
+**Forked and tweaked by Exceret**
 
-Please use [SigBridgeR](https://github.com/WangLabCSU/SigBridgeR) for the fork version of ScPP. Bug reports and feature requests are welcomed at [SigBridgeR-issues](https://github.com/WangLabCSU/SigBridgeR/issues).
+Please use [SigBridgeR](https://github.com/WangLabCSU/SigBridgeR) for
+the fork version of ScPP. Bug reports and feature requests are welcomed
+at [SigBridgeR-issues](https://github.com/WangLabCSU/SigBridgeR/issues).
 
-- News:
-  - 2025-11-19: initial tweaks
+-   News:
+    -   2025-11-19: initial tweaks
 
-A simple and effective algorithm for recognizing cell subpopulations with specific phenotypes based on the expression profiles of phenotype-associated marker genes in bulks and single cells.
+A simple and effective algorithm for recognizing cell subpopulations
+with specific phenotypes based on the expression profiles of
+phenotype-associated marker genes in bulks and single cells.
 
 <img width="858" height="756" alt="image" src="https://github.com/user-attachments/assets/d644ae45-c9a5-48dd-bbca-812d8f2413b3" />
 
+To install the package, run the following code:
+
+    pak::pak_install("Exceret/ScPP")

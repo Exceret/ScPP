@@ -92,7 +92,7 @@ ScPP.optimized <- function(
     workers <- dots$workers %||% SigBridgeRUtils::getFuncOption("workers")
 
     # Set default probs if NULL, serach for optimal probs if vector
-    probs <- probs %||% seq(0.2, 0.45, by = 0.05)
+    probs <- probs %||% round(seq(0.2, 0.45, by = 0.05), 2)
 
     # Validate probs
     if (any(probs <= 0 | probs >= 0.5)) {

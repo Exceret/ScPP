@@ -34,4 +34,3 @@ Remotes:
     bioc::fgsea
 Depends: 
     R (>= 4.0.0)
-    

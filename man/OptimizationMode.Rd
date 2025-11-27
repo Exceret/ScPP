@@ -27,6 +27,8 @@ OptimizationMode(
 
 \item{parallel}{Whether to use parallel processing}
 
+\item{parallel_type}{future::plan type, default is multisession}
+
 \item{workers}{Number of parallel workers}
 
 \item{seed}{Random seed for reproducibility}

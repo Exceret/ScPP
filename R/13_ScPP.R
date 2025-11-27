@@ -291,6 +291,7 @@ FixedProbMode <- function(
 #' @param probs Vector of probability thresholds to test
 #' @param verbose Whether to show progress messages
 #' @param parallel Whether to use parallel processing
+#' @param parallel_type future::plan type, default is multisession
 #' @param workers Number of parallel workers
 #' @param seed Random seed for reproducibility
 #' @param ... For future updates

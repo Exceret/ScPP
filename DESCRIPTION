@@ -20,7 +20,7 @@ Imports:
     rlang,
     Seurat,
     SeuratObject,
-    SigBridgeRUtils,
+    SigBridgeRUtils (>= 0.1.0),
     stats,
     survival
 Suggests: 

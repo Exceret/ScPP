@@ -194,7 +194,7 @@ FixedProbMode <- function(
     )]
 
     # Calculate quantiles
-    up_quantiles <- SigBridgeRUtils::colQuantiles(
+    up_quantiles <- SigBridgeRUtils::colQuantiles3(
         matrix(c(auc_up, auc_down), ncol = 2),
         probs = c(probs, 1 - probs)
     )

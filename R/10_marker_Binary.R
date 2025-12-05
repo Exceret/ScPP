@@ -30,8 +30,8 @@ marker_Binary.optimized <- function(
     }
 
     features_dt <- data.table::as.data.table(features)
-    ref <- features_dt[Feature == ref_group, "Sample"]
-    tes <- features_dt[Feature != ref_group, "Sample"]
+    ref <- features_dt[features_dt$Feature == ref_group, "Sample"]
+    tes <- features_dt[features_dt$Feature != ref_group, "Sample"]
 
     ref_pos <- which(colnames(bulk_data) %chin% ref)
     tes_pos <- which(colnames(bulk_data) %chin% tes)

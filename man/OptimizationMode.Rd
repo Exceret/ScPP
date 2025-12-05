@@ -8,11 +8,9 @@ OptimizationMode(
   sc_dataset,
   geneList,
   probs,
-  verbose = SigBridgeRUtils::getFuncOption("verbose"),
-  parallel = SigBridgeRUtils::getFuncOption("parallel"),
-  parallel_type = SigBridgeRUtils::getFuncOption("parallel.type"),
-  workers = SigBridgeRUtils::getFuncOption("workers"),
-  seed = SigBridgeRUtils::getFuncOption("seed"),
+  verbose = SigBridgeRUtils::getFuncOption("verbose") \%||\% TRUE,
+  parallel = !inherits(future::plan("list")[[1]], "sequential"),
+  seed = SigBridgeRUtils::getFuncOption("seed") \%||\% 123L,
   ...
 )
 }
@@ -26,10 +24,6 @@ OptimizationMode(
 \item{verbose}{Whether to show progress messages}
 
 \item{parallel}{Whether to use parallel processing}
-
-\item{parallel_type}{future::plan type, default is multisession}
-
-\item{workers}{Number of parallel workers}
 
 \item{seed}{Random seed for reproducibility}
 

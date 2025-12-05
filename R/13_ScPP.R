@@ -88,8 +88,7 @@ ScPP.optimized <- function(
     dots <- rlang::list2(...)
     verbose <- dots$verbose %||% SigBridgeRUtils::getFuncOption("verbose")
     seed <- dots$seed %||% SigBridgeRUtils::getFuncOption("seed")
-    parallel <- dots$parallel %||% SigBridgeRUtils::getFuncOption("parallel")
-    workers <- dots$workers %||% SigBridgeRUtils::getFuncOption("workers")
+    parallel <- !inherits(future::plan("list")[[1]], "sequential")
 
     # Set default probs if NULL, serach for optimal probs if vector
     probs <- probs %||% round(seq(0.2, 0.45, by = 0.05), 2)
@@ -291,8 +290,6 @@ FixedProbMode <- function(
 #' @param probs Vector of probability thresholds to test
 #' @param verbose Whether to show progress messages
 #' @param parallel Whether to use parallel processing
-#' @param parallel_type future::plan type, default is multisession
-#' @param workers Number of parallel workers
 #' @param seed Random seed for reproducibility
 #' @param ... For future updates
 #'
@@ -306,11 +303,9 @@ OptimizationMode <- function(
     sc_dataset,
     geneList,
     probs,
-    verbose = SigBridgeRUtils::getFuncOption("verbose"),
-    parallel = SigBridgeRUtils::getFuncOption("parallel"),
-    parallel_type = SigBridgeRUtils::getFuncOption("parallel.type"),
-    workers = SigBridgeRUtils::getFuncOption("workers"),
-    seed = SigBridgeRUtils::getFuncOption("seed"),
+    verbose = SigBridgeRUtils::getFuncOption("verbose") %||% TRUE,
+    parallel = !inherits(future::plan("list")[[1]], "sequential"),
+    seed = SigBridgeRUtils::getFuncOption("seed") %||% 123L,
     ...
 ) {
     set.seed(seed)
@@ -379,17 +374,11 @@ OptimizationMode <- function(
 
     # Iterate through probability thresholds
     if (parallel) {
-        SigBridgeRUtils::plan(
-            parallel_type,
-            workers = workers
-        )
-        on.exit(SigBridgeRUtils::plan("sequential"))
+        rlang::check_installed("furrr")
+        on.exit(gc(verbose = FALSE))
 
         if (verbose) {
-            ts_cli$cli_alert_info(sprintf(
-                "Using parallel processing with %d workers",
-                workers
-            ))
+            ts_cli$cli_alert_info("Using parallel processing")
         }
 
         ProcessAllProb <- function(i) {
@@ -404,11 +393,11 @@ OptimizationMode <- function(
             )
         }
 
-        results <- SigBridgeRUtils::future_map(
+        results <- furrr::future_map(
             .x = seq_len(n_probs),
             .f = ProcessAllProb,
             .progress = verbose,
-            .options = SigBridgeRUtils::furrr_options(
+            .options = furrr::furrr_options(
                 seed = seed,
                 packages = c("Seurat", "data.table", "fgsea", "rlang"),
                 globals = c(

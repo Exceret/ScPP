@@ -24,7 +24,7 @@ Must have RNA assay with normalized data.}
 \item NULL (default): Automatically searches optimal threshold using seq(0.2, 0.45, by = 0.05)
 }}
 
-\item{...}{verbose (Logical), seed (Logical), parallel (Logical), workers (integer), and other arguments}
+\item{...}{verbose (Logical), seed (Logical), parallel (Logical), and other arguments}
 }
 \value{
 A list with three components:

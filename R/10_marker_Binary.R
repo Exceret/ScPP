@@ -39,9 +39,8 @@ marker_Binary.optimized <- function(
   log2FCs <- rowMeans(bulk_data[, tes_pos, drop = FALSE]) -
     rowMeans(bulk_data[, ref_pos, drop = FALSE])
 
-  if (requireNamespace("matrixTests", quietly = TRUE)) {
-    row_t_welch <- getExportedValue("matrixTests", "row_t_welch")
-    t_results <- row_t_welch(
+  if (rlang::is_installed("matrixTests")) {
+    t_results <- matrixTests::row_t_welch(
       bulk_data[, tes_pos, drop = FALSE],
       bulk_data[, ref_pos, drop = FALSE]
     )

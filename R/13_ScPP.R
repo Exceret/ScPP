@@ -149,8 +149,8 @@ FixedProbMode <- function(
   sc_dataset,
   geneList,
   probs = 0.2,
-  verbose = SigBridgeRUtils::getFuncOption("verbose"),
-  seed = SigBridgeRUtils::getFuncOption("seed"),
+  verbose = SigBridgeRUtils::getFuncOption("verbose") %||% TRUE,
+  seed = SigBridgeRUtils::getFuncOption("seed") %||% 123L,
   ...
 ) {
   set.seed(seed)
@@ -168,7 +168,7 @@ FixedProbMode <- function(
   }
 
   # Get RNA data
-  rna_data <- SeuratObject::LayerData(sc_dataset)
+  rna_data <- SeuratObject::LayerData(sc_dataset, assay = "RNA", layer = "data")
   if (verbose) {
     ts_cli$cli_alert_info("Computing AUC scores...")
   }
@@ -178,6 +178,24 @@ FixedProbMode <- function(
   cellAUC <- AUCell::AUCell_calcAUC(geneList_AUC, cellrankings)
 
   auc_matrix <- AUCell::getAUC(cellAUC)
+
+  # fall back
+  if (!all(c("gene_pos", "gene_neg") %chin% rownames(auc_matrix))) {
+    cli::cli_warn(
+      "AUC calculation did not return expected gene sets. 
+      This may result from inproper parameters, or missing genes in the dataset.
+      returning empty results."
+    )
+    metadata <- sc_dataset[[]]
+    metadata$scPP <- "Neutral"
+
+    return(list(
+      metadata = metadata,
+      Genes_pos = NA_character_,
+      Genes_neg = NA_character_
+    ))
+  }
+
   auc_up <- as.numeric(auc_matrix["gene_pos", ])
   auc_down <- as.numeric(auc_matrix["gene_neg", ])
 
@@ -250,9 +268,10 @@ FixedProbMode <- function(
   genes_neg <- rownames(markers)[neg_mask]
 
   # Warnings for empty marker sets
-  CheckGenes <- purrr::safely(function(genes, msg) {
+  CheckGenes <- function(genes, msg) {
     if (length(genes) == 0) cli::cli_warn(msg)
-  })
+  }
+  W
 
   CheckGenes(
     genes_pos,
@@ -332,7 +351,7 @@ OptimizationMode <- function(
   }
 
   # Get RNA data
-  rna_data <- SeuratObject::LayerData(sc_dataset)
+  rna_data <- SeuratObject::LayerData(sc_dataset, assay = "RNA", layer = "data")
   if (verbose) {
     ts_cli$cli_alert_info("Computing AUC scores...")
   }

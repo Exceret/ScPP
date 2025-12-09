@@ -8,8 +8,8 @@ FixedProbMode(
   sc_dataset,
   geneList,
   probs = 0.2,
-  verbose = SigBridgeRUtils::getFuncOption("verbose"),
-  seed = SigBridgeRUtils::getFuncOption("seed"),
+  verbose = SigBridgeRUtils::getFuncOption("verbose") \%||\% TRUE,
+  seed = SigBridgeRUtils::getFuncOption("seed") \%||\% 123L,
   ...
 )
 }

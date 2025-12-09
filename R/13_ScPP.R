@@ -271,7 +271,6 @@ FixedProbMode <- function(
   CheckGenes <- function(genes, msg) {
     if (length(genes) == 0) cli::cli_warn(msg)
   }
-  W
 
   CheckGenes(
     genes_pos,

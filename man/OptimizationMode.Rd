@@ -11,6 +11,7 @@ OptimizationMode(
   verbose = SigBridgeRUtils::getFuncOption("verbose") \%||\% TRUE,
   parallel = !inherits(future::plan("list")[[1]], "sequential"),
   seed = SigBridgeRUtils::getFuncOption("seed") \%||\% 123L,
+  assay = assay,
   ...
 )
 }
@@ -26,6 +27,8 @@ OptimizationMode(
 \item{parallel}{Whether to use parallel processing}
 
 \item{seed}{Random seed for reproducibility}
+
+\item{assay}{Slot name of assay to be used}
 
 \item{...}{For future updates}
 }

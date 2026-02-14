@@ -1,6 +1,6 @@
 Package: ScPP
 Title: What the Package Does (One Line, Title Case)
-Version: 0.0.2
+Version: 0.0.3
 Authors@R: 
     person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
@@ -27,10 +27,12 @@ Suggests:
     furrr,
     future,
     matrixStats,
-    matrixTests
+    matrixTests,
+    testthat (>= 3.0.0)
 Remotes: 
     github::WangLabCSU/SigBridgeRUtils,
     bioc::AUCell,
     bioc::fgsea
 Depends: 
     R (>= 4.0.0)
+Config/testthat/edition: 3

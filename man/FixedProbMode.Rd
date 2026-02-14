@@ -10,6 +10,7 @@ FixedProbMode(
   probs = 0.2,
   verbose = SigBridgeRUtils::getFuncOption("verbose") \%||\% TRUE,
   seed = SigBridgeRUtils::getFuncOption("seed") \%||\% 123L,
+  assay = "RNA",
   ...
 )
 }
@@ -23,6 +24,8 @@ FixedProbMode(
 \item{verbose}{Whether to show progress messages}
 
 \item{seed}{Random seed for reproducibility}
+
+\item{assay}{Slot name of assay to be used}
 
 \item{...}{Additional arguments passed to downstream functions}
 }

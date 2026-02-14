@@ -88,7 +88,7 @@ ScPP.optimized <- function(
   dots <- rlang::list2(...)
   verbose <- dots$verbose %||% SigBridgeRUtils::getFuncOption("verbose")
   seed <- dots$seed %||% SigBridgeRUtils::getFuncOption("seed")
-  parallel <- !inherits(future::plan("list")[[1]], "sequential")
+  parallel <- dots$parallel %||% FALSE
 
   # Set default probs if NULL, serach for optimal probs if vector
   probs <- probs %||% round(seq(0.2, 0.45, by = 0.05), 2)
@@ -138,6 +138,7 @@ ScPP.optimized <- function(
 #' @param probs Probability threshold for classification (default: 0.2)
 #' @param verbose Whether to show progress messages
 #' @param seed Random seed for reproducibility
+#' @param assay Slot name of assay to be used
 #' @param ... Additional arguments passed to downstream functions
 #'
 #' @return List containing classification metadata and marker genes
@@ -151,6 +152,7 @@ FixedProbMode <- function(
   probs = 0.2,
   verbose = SigBridgeRUtils::getFuncOption("verbose") %||% TRUE,
   seed = SigBridgeRUtils::getFuncOption("seed") %||% 123L,
+  assay = "RNA",
   ...
 ) {
   set.seed(seed)
@@ -168,7 +170,11 @@ FixedProbMode <- function(
   }
 
   # Get RNA data
-  rna_data <- SeuratObject::LayerData(sc_dataset, assay = "RNA", layer = "data")
+  rna_data <- SeuratObject::LayerData(
+    sc_dataset,
+    assay = assay,
+    layer = "data"
+  )
   if (verbose) {
     ts_cli$cli_alert_info("Computing AUC scores...")
   }
@@ -308,6 +314,7 @@ FixedProbMode <- function(
 #' @param verbose Whether to show progress messages
 #' @param parallel Whether to use parallel processing
 #' @param seed Random seed for reproducibility
+#' @param assay Slot name of assay to be used
 #' @param ... For future updates
 #'
 #' @return Optimal probability threshold that maximizes NES difference
@@ -323,6 +330,7 @@ OptimizationMode <- function(
   verbose = SigBridgeRUtils::getFuncOption("verbose") %||% TRUE,
   parallel = !inherits(future::plan("list")[[1]], "sequential"),
   seed = SigBridgeRUtils::getFuncOption("seed") %||% 123L,
+  assay = assay,
   ...
 ) {
   set.seed(seed)
@@ -350,7 +358,11 @@ OptimizationMode <- function(
   }
 
   # Get RNA data
-  rna_data <- SeuratObject::LayerData(sc_dataset, assay = "RNA", layer = "data")
+  rna_data <- SeuratObject::LayerData(
+    sc_dataset,
+    assay = assay,
+    layer = "data"
+  )
   if (verbose) {
     ts_cli$cli_alert_info("Computing AUC scores...")
   }

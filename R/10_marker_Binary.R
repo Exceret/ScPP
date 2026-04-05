@@ -39,7 +39,16 @@ marker_Binary.optimized <- function(
   log2FCs <- rowMeans(bulk_data[, tes_pos, drop = FALSE]) -
     rowMeans(bulk_data[, ref_pos, drop = FALSE])
 
-  if (rlang::is_installed("matrixTests")) {
+  if (rlang::is_installed("viper")) {
+    t_results <- viper::rowTtest(
+      bulk_data[, tes_pos, drop = FALSE],
+      bulk_data[, ref_pos, drop = FALSE]
+    )
+    pvalues <- as.vector(t_results$p.value)
+    statistics <- as.vector(t_results$statistic)
+    names(pvalues) <- rownames(bulk_data)
+    names(statistics) <- rownames(bulk_data)
+  } else if (rlang::is_installed("matrixTests")) {
     t_results <- matrixTests::row_t_welch(
       bulk_data[, tes_pos, drop = FALSE],
       bulk_data[, ref_pos, drop = FALSE]
@@ -56,10 +65,7 @@ marker_Binary.optimized <- function(
     names(statistics) <- rownames(bulk_data)
 
     for (i in seq_len(n_genes)) {
-      test_result <- rlang::try_fetch(
-        stats::t.test(bulk_data[i, tes_pos], bulk_data[i, ref_pos]),
-        error = function(e) list(p.value = NA, statistic = NA)
-      )
+      test_result <- stats::t.test(bulk_data[i, tes_pos], bulk_data[i, ref_pos])
       pvalues[i] <- test_result$p.value
       statistics[i] <- test_result$statistic
     }

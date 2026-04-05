@@ -425,20 +425,7 @@ OptimizationMode <- function(
     results <- furrr::future_map(
       .x = seq_len(n_probs),
       .f = ProcessAllProb,
-      .progress = verbose,
-      .options = furrr::furrr_options(
-        seed = seed,
-        packages = c("Seurat", "data.table", "fgsea", "rlang"),
-        globals = c(
-          "metadata_dt",
-          "sc_dataset",
-          "probs",
-          "quantiles_up",
-          "quantiles_down",
-          "genes_sort",
-          "ProcessSingleProb"
-        )
-      )
+      .progress = verbose
     )
   } else {
     results <- purrr::map(

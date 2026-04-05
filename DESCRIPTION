@@ -1,6 +1,6 @@
 Package: ScPP
 Title: What the Package Does (One Line, Title Case)
-Version: 0.0.3
+Version: 0.0.4
 Authors@R: 
     person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
@@ -28,9 +28,10 @@ Suggests:
     future,
     matrixStats,
     matrixTests,
-    testthat (>= 3.0.0)
+    microbenchmark,
+    testthat (>= 3.0.0),
+    viper
 Remotes: 
-    github::WangLabCSU/SigBridgeRUtils,
     bioc::AUCell,
     bioc::fgsea
 Depends: 

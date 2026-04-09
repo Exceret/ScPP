@@ -11,7 +11,7 @@ OptimizationMode(
   verbose = SigBridgeRUtils::getFuncOption("verbose") \%||\% TRUE,
   parallel = !inherits(future::plan("list")[[1]], "sequential"),
   seed = SigBridgeRUtils::getFuncOption("seed") \%||\% 123L,
-  assay = assay,
+  assay = "RNA",
   ...
 )
 }

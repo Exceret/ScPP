@@ -89,6 +89,7 @@ ScPP.optimized <- function(
   verbose <- dots$verbose %||% SigBridgeRUtils::getFuncOption("verbose")
   seed <- dots$seed %||% SigBridgeRUtils::getFuncOption("seed")
   parallel <- dots$parallel %||% FALSE
+  assay <- dots$assat %||% "RNA"
 
   # Set default probs if NULL, serach for optimal probs if vector
   probs <- probs %||% round(seq(0.2, 0.45, by = 0.05), 2)
@@ -112,7 +113,8 @@ ScPP.optimized <- function(
       probs = probs,
       parallel = parallel,
       verbose = verbose,
-      seed = seed
+      seed = seed,
+      assay = assay
     )
   }
   # ============================================================
@@ -123,7 +125,8 @@ ScPP.optimized <- function(
     geneList = geneList,
     probs = probs,
     verbose = verbose,
-    seed = seed
+    seed = seed,
+    assay = assay
   )
 }
 
@@ -330,7 +333,7 @@ OptimizationMode <- function(
   verbose = SigBridgeRUtils::getFuncOption("verbose") %||% TRUE,
   parallel = !inherits(future::plan("list")[[1]], "sequential"),
   seed = SigBridgeRUtils::getFuncOption("seed") %||% 123L,
-  assay = assay,
+  assay = "RNA",
   ...
 ) {
   set.seed(seed)

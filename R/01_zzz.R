@@ -1,24 +1,16 @@
 # ? Package startup messages
 .onAttach <- function(libname, pkgname) {
-    pkg_version <- utils::packageVersion(pkgname)
+  pkg_version <- utils::packageVersion(pkgname)
 
-    msg <- cli::cli_fmt(cli::cli_alert_success(
-        "{.pkg {pkgname}} v{pkg_version} loaded"
-    ))
-    packageStartupMessage(msg)
-    invisible()
+  msg <- cli::cli_fmt(cli::cli_alert_success(
+    "{.pkg {pkgname}} v{pkg_version} loaded"
+  ))
+  packageStartupMessage(msg)
+  invisible()
 }
 
-.onLoad <- function(libname, pkgname) {
-    # Add timestamp to cli functions
-    assign(
-        "ts_cli",
-        SigBridgeRUtils::CreateTimeStampCliEnv(),
-        envir = asNamespace(pkgname)
-    )
 
-    invisible()
-}
+ts_cli <- SigBridgeRUtils::CreateTimeStampCliEnv()
 
 #' @importFrom dplyr %>%
 #' @importFrom data.table %chin% := `:=` `%chin%`
